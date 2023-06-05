@@ -1,8 +1,4 @@
-lockfileVersion: '6.1'
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
+lockfileVersion: '6.0'
 
 dependencies:
   '@element-plus/icons-vue':
@@ -14,9 +10,15 @@ dependencies:
   element-plus:
     specifier: ^2.3.5
     version: 2.3.5(vue@3.2.47)
+  pinia:
+    specifier: 2.0.0
+    version: 2.0.0(typescript@5.0.2)(vue@3.2.47)
   vue:
     specifier: ^3.2.47
     version: 3.2.47
+  vue-router:
+    specifier: ^4.2.2
+    version: 4.2.2(vue@3.2.47)
 
 devDependencies:
   '@babel/eslint-parser':
@@ -1042,6 +1044,10 @@ packages:
       '@vue/compiler-dom': 3.3.4
       '@vue/shared': 3.3.4
     dev: true
+
+  /@vue/devtools-api@6.5.0:
+    resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
+    dev: false
 
   /@vue/reactivity-transform@3.2.47:
     resolution: {integrity: sha512-m8lGXw8rdnPVVIdIFhf0LeQ/ixyHkH5plYuS83yop5n7ggVJU+z5v0zecwEnX7fa7HNLBhh2qngJJkxpwEEmYA==}
@@ -3224,6 +3230,24 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
+  /pinia@2.0.0(typescript@5.0.2)(vue@3.2.47):
+    resolution: {integrity: sha512-pqnQv1m7oEwYExGl//EtOn9rgFn7gtXECP/hZHy+WicmHXmWWkbsvpR+9z1xxrIgDOmVYuh1eYfRULJklzOKsQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.2.4
+      typescript: ^4.4.4
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      typescript: 5.0.2
+      vue: 3.2.47
+      vue-demi: 0.14.5(vue@3.2.47)
+    dev: false
+
   /postcss-html@1.5.0:
     resolution: {integrity: sha512-kCMRWJRHKicpA166kc2lAVUGxDZL324bkj/pVOb6RhjB0Z5Krl7mN0AsVkBhVIRZZirY0lyQXG38HCVaoKVNoA==}
     engines: {node: ^12 || >=14}
@@ -4034,7 +4058,6 @@ packages:
     resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
     engines: {node: '>=12.20'}
     hasBin: true
-    dev: true
 
   /unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -4174,6 +4197,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-router@4.2.2(vue@3.2.47):
+    resolution: {integrity: sha512-cChBPPmAflgBGmy3tBsjeoe3f3VOSG6naKyY5pjtrqLGbNEXdzCigFUHgBvp9e3ysAtFtEx7OLqcSDh/1Cq2TQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.47
+    dev: false
 
   /vue-template-compiler@2.7.14:
     resolution: {integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==}
