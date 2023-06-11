@@ -1,4 +1,2 @@
-import path from 'path';
-
-let a = path.resolve('./');
-console.log(a);
+let date = new Date();
+console.log(date.toLocaleString());

@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { ElMessage } from 'element-plus';
+import ElMessage from 'element-plus';
 
 // 第一步：利用 axios 对象的 create 方法，去创建 axios 实例(其他配置：基础路径、超时时间等)
 let request = axios.create({
   // 1. 基础路径
-  baseURL: "http://127.0.0.1:8080" + import.meta.env.VITE_APP_BASE_API, // 基础路径
+  baseURL: 'http://127.0.0.1:8080' + import.meta.env.VITE_APP_BASE_API, // 基础路径
   timeout: 5000, // 超时时间
 }); //=> 返回一个 axios 实例对象
 
@@ -42,7 +42,7 @@ request.interceptors.response.use(
         break;
       default:
         message = '网络出现问题';
-    }
+    };
     ElMessage({
       type: 'error',
       message,

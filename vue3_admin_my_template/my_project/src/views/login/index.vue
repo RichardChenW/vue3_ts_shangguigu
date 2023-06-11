@@ -5,18 +5,23 @@
       <el-col :span="12" :xs="0"></el-col>
       <!-- 右边栅栏 -->
       <el-col :span="12" :xs="24">
-        <el-form :model="loginFormData" class="login-form">
+        <el-form
+          ref="ruleFormRef"
+          :model="loginFormData"
+          :rules="rules"
+          class="login-form"
+        >
           <h1>Hello!</h1>
           <h2>欢迎来到旺仔后台</h2>
           <!-- 账号 -->
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
-              v-model="loginFormData.username"
+              v-model.username="loginFormData.username"
               :prefix-icon="User"
             ></el-input>
           </el-form-item>
           <!-- 密码 -->
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               v-model="loginFormData.password"
               type="password"
@@ -42,46 +47,108 @@
 </template>
 
 <script setup>
-  import { reactive,ref} from 'vue';
+  import { reactive, ref, onMounted } from 'vue';
   import { User, Lock } from '@element-plus/icons-vue';
   import useUserStore from '@/store/modules/user';
   import { useRouter } from 'vue-router';
   import { ElNotification } from 'element-plus';
 
+  import { getTime } from '@/utils/time';
+
   let userStore = useUserStore();
   let $router = useRouter();
-  
+
   // 收集账号与密码数据
   let loginFormData = reactive({
     username: 'admin',
     password: '111111',
   });
   // 定义变量控制按钮加载效果
-  let btnLoading = ref(false)
-
+  let btnLoading = ref(false);
+  // 获取表单实例，为了使用它的 validate 方法
+  const ruleFormRef = ref();
 
   // 登录按钮点击事件
   const login = async () => {
-    btnLoading.value = true
-    // 登录是否成功，可以
+    // 保证全部表单校验通过再发请求
     try {
-      await userStore.userLogin(loginFormData);
-      $router.push('/');
-      // 登录成功的信息
-      ElNotification({
-        type: 'success',
-        message: '登录成功',
-      });
-      // 加载成功 loading 效果也消失
-      btnLoading.value = false
-    } catch (error) {
+      await ruleFormRef.value.validate();
+
+      btnLoading.value = true;
+      // 登录是否成功，可以
+      try {
+        await userStore.userLogin(loginFormData);
+        $router.push('/');
+        // 登录成功的信息
+        ElNotification({
+          type: 'success',
+          title: '欢迎回来',
+          message: `Hi,${getTime()}好`,
+        });
+        // 加载成功 loading 效果也消失
+        btnLoading.value = false;
+      } catch (error) {
+        ElNotification({
+          type: 'error',
+          message: '登录失败',
+        });
+        btnLoading.value = false;
+      }
+    } catch {
       ElNotification({
         type: 'error',
-        message: error.message,
+        message: '账号密码不符合规范',
       });
-      btnLoading.value = false
     }
   };
+
+  // 定义表单配置对象
+  // const passwordValidator = (rule: any, value: any, callback: any) => {
+  // if (value.length > 20) {
+  //   callback(new Error('太太长了啦！'));
+  // } else {
+  //   callback();
+  // }
+  //   console.log("hello world")
+  // };
+
+  const passwordValidator = (rule, value, callback) => {
+    if (value.length > 10) {
+      callback(new Error('太太长了啦！'));
+    } else {
+      callback();
+    }
+  };
+
+  const rules = reactive({
+    username: [
+      {
+        required: true,
+        message: '账户不能为空',
+        trigger: 'blur',
+      },
+      {
+        min: 5,
+        max: 10,
+        message: '账号长度要在6-10之间',
+        trigger: 'blur',
+      },
+    ],
+    password: [
+      // {
+      //   required: true,
+      //   min: 5,
+      //   max: 10,
+      //   message: '密码长度要在6-10之间',
+      //   trigger: 'blur',
+      // },
+      {
+        validator: passwordValidator,
+        trigger: 'blur',
+        message:"密码长度不能超过20"
+      },
+    ],
+  });
 </script>
 
 <style lang="scss" scoped>
