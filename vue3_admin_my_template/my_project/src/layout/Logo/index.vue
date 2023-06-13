@@ -1,31 +1,37 @@
-// @ts-ignore
-
 <template>
   <div class="logo" v-if="!setting.logoHidden">
-    <img :src="setting.logo" />
+    <div class="image-conatiner">
+      <img :src="setting.logo" />
+    </div>
     <p>{{ setting.title }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import setting from "@/setting.ts"
+  // @ts-ignore
+  import setting from '@/setting.ts';
 </script>
 
 <style lang="scss" scoped>
-.logo {
+  .logo {
     display: flex;
     align-items: center; // ⭐单行水平居中
     width: 100%;
     height: $base-menu-logo-height;
     padding: 15px;
-    img {
-      width: 40px;
-      height: 40px;
+    .image-conatiner {
+      border-radius: 100%;
+      overflow: hidden;
+      img {
+        width: 40px;
+        height: 40px;
+      }
     }
+
     p {
       font-size: $base-logo-title-fontsize;
       color: white;
-      margin-left: 40px;
+      margin-left: 20px;
     }
-}
+  }
 </style>

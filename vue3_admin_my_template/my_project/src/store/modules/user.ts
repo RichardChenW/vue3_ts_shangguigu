@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { reqLogin } from '@/api/user';
 import type { UserState } from './types/types.ts';
+//引入常量路由
+import { constantRoute } from '@/router/routes.ts';
 
 let useUserStore = defineStore('login', {
   // 小仓库存数据
@@ -8,6 +10,7 @@ let useUserStore = defineStore('login', {
     // 储存用户的token
     return {
       token: localStorage.getItem('TOKEN') || '', // 用户唯一标识 token
+      menuRoutes:constantRoute, // 存储菜单生成的数组（路由）
     };
   },
 
