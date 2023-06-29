@@ -53,10 +53,11 @@ def verify_user_account(user_account:UserAccount):
 # 验证用户 token 是否存在
 @app.get('/api/user/info')
 def get_user(token:Union[str,None]=Header(default=None)):
+    
     if token:
-        user_tokens = [each["token"] for each in user_list]
-        if token in user_tokens:
-            return { "code": 200, "data": { token } }
+        for user in user_list:
+            if user["token"] == token:
+                return { "code": 200, "data": user}
         else:
             return { "code": 201, "data": { "message": '账号不存在'}}
     else:

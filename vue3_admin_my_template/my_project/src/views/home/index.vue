@@ -4,6 +4,16 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+  // 引入组合式 API 生命周期函数
+  import { onMounted } from 'vue';
+  import useUserStore from '@/store/modules/user';
+
+  let userStore = useUserStore()
+  onMounted(()=>{
+    userStore.getUserInfo()
+  })
+
+</script>
 
 <style lang="scss" scoped></style>

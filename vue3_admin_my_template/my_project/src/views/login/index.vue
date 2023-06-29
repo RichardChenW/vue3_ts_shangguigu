@@ -50,13 +50,14 @@
   import { reactive, ref, onMounted } from 'vue';
   import { User, Lock } from '@element-plus/icons-vue';
   import useUserStore from '@/store/modules/user';
-  import { useRouter } from 'vue-router';
+  import { useRouter,useRoute } from 'vue-router';
   import { ElNotification } from 'element-plus';
 
   import { getTime } from '@/utils/time';
 
   let userStore = useUserStore();
   let $router = useRouter();
+  let $route = useRoute();
 
   // 收集账号与密码数据
   let loginFormData = reactive({
@@ -78,7 +79,13 @@
       // 登录是否成功，可以
       try {
         await userStore.userLogin(loginFormData);
-        $router.push('/');
+        // 判断登录的时候，路由路径当中是否有qurey参数，如果有，就往query参数跳
+        if ($route.query.lastPageRoute){
+          $router.push($route.query.lastPageRoute);
+        }
+        else{
+          $router.push('/');
+        }
         // 登录成功的信息
         ElNotification({
           type: 'success',

@@ -15,9 +15,9 @@ export const constantRoute = [
     name: 'home',
     redirect: '/home',
     meta: {
-      title: 'layout',
+      title: '',
       hidden: false,
-      icon: 'Grid',
+      icon: 'HomeFilled',
     },
     children: [
       {
@@ -52,6 +52,7 @@ export const constantRoute = [
       hidden: false,
       icon: 'lock',
     },
+    redirect:"/acl/user",
     children: [
       {
         path: '/acl/user',
@@ -95,6 +96,7 @@ export const constantRoute = [
       hidden: false,
       icon:"DataAnalysis"
     },
+    redirect:"/product/tradmark",
     children:[
       {
         path:"/product/tradmark",

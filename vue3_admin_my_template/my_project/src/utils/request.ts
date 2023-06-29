@@ -1,6 +1,9 @@
 import axios from 'axios';
 import ElMessage from 'element-plus';
 
+import useUserStore from '@/store/modules/user';
+
+
 // 第一步：利用 axios 对象的 create 方法，去创建 axios 实例(其他配置：基础路径、超时时间等)
 let request = axios.create({
   // 1. 基础路径
@@ -11,6 +14,10 @@ let request = axios.create({
 // 第二步：未 request 实例添加请求与响应拦截器
 request.interceptors.request.use((config) => {
   // config 配置对象,headers 属性请求头，经常给服务器端携带公共参数
+  let userStore = useUserStore();
+  if (userStore.token){
+    config.headers.token = userStore.token
+  }
   // 发出请求时，会自动运行回调函数，并传入 config 配置对象，必须返回
   return config;
 });
@@ -43,6 +50,7 @@ request.interceptors.response.use(
       default:
         message = '网络出现问题';
     };
+    //@ts-ignore
     ElMessage({
       type: 'error',
       message,

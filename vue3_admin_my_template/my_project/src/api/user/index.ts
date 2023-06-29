@@ -23,7 +23,4 @@ export const reqUserInfo = (): Promise<any> =>
   request({
     method: 'GET',
     url: API.USERINFO,
-    headers: {
-      token: 'Admin Token',
-    },
   });

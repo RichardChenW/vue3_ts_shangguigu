@@ -1,2 +1,2 @@
-let date = new Date();
-console.log(date.toLocaleString());
+// 查看空字符串的bool值
+console.log(Boolean(" "))

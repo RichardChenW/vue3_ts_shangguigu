@@ -3,13 +3,25 @@
     <div class="image-conatiner">
       <img :src="setting.logo" />
     </div>
-    <p>{{ setting.title }}</p>
+    <!-- 设置文字消失的动画 -->
+    <transition name="titleShow" appear>
+      <p v-show="!settingStore.isFold">{{ setting.title }}</p>
+    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
   // @ts-ignore
   import setting from '@/setting.ts';
+  import useSettingStore from '@/store/modules/setting';
+
+  let settingStore = useSettingStore();
+</script>
+
+<script lang="ts">
+  export default {
+    name: 'Logo',
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -32,6 +44,18 @@
       font-size: $base-logo-title-fontsize;
       color: white;
       margin-left: 20px;
+    }
+  }
+
+  .titleShow-enter-active {
+    animation: opacityShow 1s;
+  }
+  @keyframes opacityShow {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 </style>
